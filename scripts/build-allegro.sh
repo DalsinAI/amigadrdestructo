@@ -36,7 +36,7 @@ xiph() { # name url tag commit
 }
 xiph ogg https://github.com/xiph/ogg.git v1.3.5 e1774cd77f471443541596e09078e78fdc342e4f
 xiph vorbis https://github.com/xiph/vorbis.git v1.3.7 0657aee69dec8508a0011f47f3b69d7538e9d262
-XIPH_EXTRA="-DBUILD_ALLEGRO4=OFF -DBUILD_EXAMPLES=OFF" xiph dumb https://github.com/kode54/dumb.git 2.0.3 f6ee2e9b36e14613cbd7b8ee678251c4cbdfdc9f
+XIPH_EXTRA="-DBUILD_ALLEGRO4=OFF -DBUILD_EXAMPLES=OFF -DCMAKE_C_FLAGS=-DDUMB_OFF_T_CUSTOM=int64_t" xiph dumb https://github.com/kode54/dumb.git 2.0.3 f6ee2e9b36e14613cbd7b8ee678251c4cbdfdc9f
 
 # a build cut off by the stove's time limit goes on where it stopped
 rm -rf "$PFX"
