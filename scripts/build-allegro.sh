@@ -27,6 +27,10 @@ xiph() { # name url tag commit
         [ "$(git -C "$d" rev-parse HEAD)" = "$4" ] || { echo "$1: not $4" >&2; exit 1; }
     fi
     [ -f "$VP/.$1" ] && return 0
+    if [ "$1" = dumb ]; then
+        # Amiga m68k hunk objects support at most eight-byte alignment.
+        sed -i "s/aligned(16)/aligned(8)/" "$d/src/helpers/resampler.c"
+    fi
     cmake -S "$d" -B "$WORK/$1-build" -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
         -DCMAKE_TOOLCHAIN_FILE="$SRC/cmake/Toolchain-amigaos3.cmake" -DAMIGA_STOVE="$STOVE" \
         -DAMIGA_PORT_PREFIX="$VP" -DCMAKE_INSTALL_PREFIX="$VP" -DCMAKE_BUILD_TYPE=Release \
