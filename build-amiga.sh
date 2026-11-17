@@ -79,7 +79,7 @@ n=$(ls "$O"/*.o | wc -l); want=$(wc -l < "$WORK/files.txt")
 [ "$n" -eq "$want" ] || { echo "objects $n of $want"; exit 1; }
 m68k-amigaos-g++ $ARCH -o "$WORK/DrDestructo.debug" "$O"/*.o \
     "$PFX/lib/liballegro_monolith-static.a" "$VP/lib/libdumb.a" "$VP/lib/libvorbisfile.a" "$VP/lib/libvorbis.a" "$VP/lib/libogg.a" \
-    "$SYSROOT/lib/libSDL2.a" "$SYSROOT/lib/libGL.a" "$DEPS/lib/libpng.a" "$DEPS/lib/libz.a" -lm -lpthread
+    "$SYSROOT/lib/libSDL2.a" "$SYSROOT/lib/libGL.a" "$DEPS/lib/libpng.a" "$DEPS/lib/libz.a" "$DEPS/lib/libfreetype.a" -lm -lpthread
 
 # --- the GFOpenUp part: Parts/DrDestructo --------------------------------------------------
 P="$OUT/Parts/DrDestructo"; D="$P/Games/DrDestructo"; rm -rf "$P"; mkdir -p "$D"
