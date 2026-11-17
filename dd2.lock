@@ -1,0 +1,5 @@
+DD2_GIT=https://github.com/MaxSavenkov/drdestructo2
+DD2_COMMIT=a8c0d506ea7280e60d4b6bb3045ea9b471c3e314
+DD2_VERSION=1.0
+ALLEGRO_GIT=https://github.com/DalsinAI/amigaallegro
+ALLEGRO_COMMIT=823f17f78511c2ae85b93fd7060cc9fffc47d4af

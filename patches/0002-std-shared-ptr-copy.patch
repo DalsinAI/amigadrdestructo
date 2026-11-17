@@ -1,0 +1,17 @@
+C++11 std::shared_ptr has no reset(shared_ptr); the copy constructor of
+SampleInstance assigns instead (same result as the boost reset it was
+written for). Needed with HAS_STD_SHARED_PTR, which GCC 16 builds use.
+
+diff --git a/src/Engine/ISound.h b/src/Engine/ISound.h
+index 4cbdf43..77a91fd 100644
+--- a/src/Engine/ISound.h
++++ b/src/Engine/ISound.h
+@@ -90,7 +90,7 @@ public:
+ 	SampleInstance( const SampleInstance & other )
+ 	{
+ 		if ( this != &other )
+-			m_sample.reset( other.m_sample );
++			m_sample = other.m_sample;
+ 	}
+ 
+ 	~SampleInstance()
