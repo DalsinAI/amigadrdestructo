@@ -8,7 +8,7 @@ set -eu
 STOVE=$1; WORK=$2; GITURL=$3; COMMIT=$4
 SYSROOT="$STOVE/prefix/m68k-amigaos"; DEPS="$SYSROOT/port-deps"
 SRC="$WORK/amigaallegro"; BLD="$WORK/allegro-build"; PFX="$WORK/allegro-prefix"
-if [ -f "$PFX/lib/liballegro_monolith-static.a" ] && [ "$(cat "$PFX/.rev" 2>/dev/null)" = "$COMMIT" ]; then
+if [ -f "$PFX/lib/liballegro_monolith-static.a" ] && [ "$(cat "$PFX/.rev" 2>/dev/null)" = "$COMMIT" ] && [ -f "$PFX/include/allegro5/allegro_ttf.h" ]; then
     echo "$PFX"; exit 0
 fi
 for f in "$SYSROOT/lib/libSDL2.a" "$SYSROOT/lib/libGL.a" "$SYSROOT/include/SDL2/SDL.h" "$DEPS/lib/libpng.a" "$DEPS/lib/libz.a"; do
@@ -59,6 +59,7 @@ cmake -S "$SRC" -B "$BLD" -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DOGG_INCLUDE_DIR="$VP/include" -DOGG_LIBRARY="$VP/lib/libogg.a" \
     -DVORBIS_INCLUDE_DIR="$VP/include" -DVORBIS_LIBRARY="$VP/lib/libvorbis.a" -DVORBISFILE_LIBRARY="$VP/lib/libvorbisfile.a" \
     -DFREETYPE_INCLUDE_DIRS="$DEPS/include/freetype2" -DFREETYPE_LIBRARY="$DEPS/lib/libfreetype.a" \
+    -DFREETYPE_LIBRARY_RELEASE="$DEPS/lib/libfreetype.a" -DFREETYPE_INCLUDE_DIR_ft2build="$DEPS/include/freetype2" -DFREETYPE_INCLUDE_DIR_freetype2="$DEPS/include/freetype2" \
     -DDUMB_INCLUDE_DIR="$VP/include" -DDUMB_LIBRARY="$VP/lib/libdumb.a" \
     -DALLEGRO_HAVE_FSEEKO=0 -DALLEGRO_HAVE_FTELLO=0 -DALLEGRO_HAVE_STRERROR_R=0 -DALLEGRO_HAVE_STRERROR_S=0 \
     > "$WORK/allegro-cmake.log" 2>&1 || { tail -40 "$WORK/allegro-cmake.log" >&2; rm -rf "$BLD"; exit 1; }
