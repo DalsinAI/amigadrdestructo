@@ -16,6 +16,9 @@ The game's own Lua 5.1, luabind, tinyxml and Boost headers are compiled from
 its checkout. Allegro and the game's objects are kept between runs, so a run
 that ends out of time says so and the next run goes on.
 
+`patches/0002-std-shared-ptr-copy.patch`: with std::shared_ptr (GCC 16)
+the sound instance copy assigns instead of the boost-only `reset(ptr)`.
+
 `patches/0001-gfos-no-joystick-guid.patch`: amigaallegro has no
 `al_get_joystick_guid_string` (upstream needs its own Allegro patch for it),
 so every pad takes the game's default mapping.
@@ -32,10 +35,13 @@ keeps its settings and scores there.
 
     sh tests/test_host.sh
     DD2_SRC=<checkout of the game> sh tests/test_lock.sh
+    DD2_SRC=<checkout of the game> sh tests/host_syntax.sh
 
 `test_lock.sh` checks the pins, the `$VER` string, that `amiga/sources.txt`
 is exactly the game's CMake source lists and that the patches apply.
-`test-part.sh` checks the GFOpenUp Part writer.
+`test-part.sh` checks the GFOpenUp Part writer. `host_syntax.sh` compiles
+every source with the host compiler and the build flags (patches applied)
+against host Allegro 5 headers, and skips without them.
 
 ## Rights
 

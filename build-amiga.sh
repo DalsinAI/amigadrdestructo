@@ -52,7 +52,7 @@ ARCH="-mcrt=nix20 -m68040 -m68881 -pthread"
 DEFS="-DALLEGRO_STATICLINK=1 -D__AMIGAOS3__=1 -DTIXML_USE_STL -DHAS_STD_SHARED_PTR -DNDEBUG"
 INC="-I$SRC/src -I$SRC/src/Engine -I$SRC/src/tinyxml -I$SRC/src/boost -I$SRC/src/luabind -I$SRC/src/lua \
  -I$SRC/src/FastDelegate -I$SRC/libs/src/lua/src -I$PFX/include -I$VP/include -I$SYSROOT/include"
-CXXF="$ARCH -std=gnu++14 -Wno-deprecated-declarations -O2 -fomit-frame-pointer $DEFS $INC"
+CXXF="$ARCH -std=gnu++14 -Wno-deprecated-declarations -Wno-changes-meaning -include cmath -O2 -fomit-frame-pointer $DEFS $INC"
 CF="$ARCH -std=gnu17 -O2 -fomit-frame-pointer $DEFS $INC"
 O="$WORK/obj"; mkdir -p "$O"; export CF CXXF
 { sed "s|^|$SRC/|" "$HERE/amiga/sources.txt"; echo "$HERE/amiga/amiga_start.c"; } > "$WORK/files.txt"
